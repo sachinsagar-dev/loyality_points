@@ -22,6 +22,8 @@ The application uses a plain HTML/CSS/JavaScript frontend, an Express REST API, 
 - One-page product landing/authentication entry view.
 - Searchable member directory with pagination and sorting.
 - Dependency-free automated tests for reward and schema invariants.
+- Automatic Platinum promotion at lifetime spend `5000`.
+- Deterministic `POST /clock` point expiry and `GET /outbox` tier notifications.
 
 The core Round 2 requirements are now represented in the implementation. Future hardening could add role permissions, richer integration tests, and production session revocation.
 
@@ -91,6 +93,14 @@ Never commit `.env`; it is excluded by `.gitignore`. Use `.env.example` as the s
 
 Returns API/database status. Returns `200` when MongoDB is connected and `503` when it is unavailable.
 
+### `POST /clock`
+
+Expires unused point lots at or before the requested time. Body: `{ "now": "2026-12-17T00:00:00.000Z" }`.
+
+### `GET /outbox`
+
+Returns queued tier-upgrade notifications created when a member crosses into Platinum.
+
 ### `POST /api/auth/register`
 
 Creates a staff account and returns a signed bearer token. Body: `{ "name": "Ava", "email": "ava@example.com", "password": "password123" }`.
@@ -150,6 +160,9 @@ The unspecified rules currently use these centralized defaults:
 - Regular multiplier: `1`
 - Silver multiplier: `1.25`
 - Gold multiplier: `1.5`
+- Platinum multiplier: `0.3`
+- Platinum threshold: lifetime spend `>= 5000`
+- Earned point lots expire after `90` days
 - One point per currency unit before the tier multiplier
 - Fractional earned points are rounded down
 - New members start at zero points

@@ -42,6 +42,8 @@ For a hosted MongoDB instance, skip `npm run db:up` and set `MONGO_URI` in `.env
 - `POST /api/members/:id/purchase`: record a purchase. Body: `{ "amount": 12.50 }`.
 - `POST /api/members/:id/redeem`: redeem points. Body: `{ "points": 10 }`.
 - `GET /api/health`: report API and MongoDB connection status.
+- `POST /clock`: expire point lots at a supplied ISO timestamp.
+- `GET /outbox`: inspect queued Platinum tier-upgrade notifications.
 - `GET /api/members/:id/transactions?page=1&limit=10&sortBy=createdAt&order=desc`: return paginated member activity. Sorting supports `createdAt`, `pointsChange`, and `type`.
 
 Successful mutation responses include the updated `member`; errors use `{ "error": "..." }` with a relevant HTTP status.
@@ -49,6 +51,6 @@ Member and reward endpoints require `Authorization: Bearer <token>`.
 
 ## Important assumptions
 
-The assessment does not specify earning rates, currency conversion, tier thresholds, promotions, or redemption catalogue rules. Those choices are isolated in `services/rewardService.js`: one point per currency unit, with multipliers of Regular `1`, Silver `1.25`, and Gold `1.5`; fractional results are rounded down. Tier is supplied when a member is created and is not automatically promoted because no thresholds were provided. Confirm and change these values centrally before production use.
+The twist rules are centralized in `services/rewardService.js`: Platinum begins at lifetime spend `5000`, earns `0.3` points per currency unit, and unused earned points expire after `90` days. Existing Regular, Silver, and Gold tiers retain their current values; fractional earned points are rounded down. A tier-upgrade notification is written to the outbox when a purchase crosses the Platinum threshold.
 
 Redemption accepts positive whole points. Purchases accept positive numeric amounts. Purchase updates use a tier-aware atomic increment, while redemption uses an atomic `points >= requested` filter so concurrent requests cannot make a balance negative.

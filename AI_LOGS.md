@@ -350,3 +350,11 @@ build the rest feasture but keep it simple
 ## Assistant
 
 Built the remaining simple Round 2 feature set: staff registration/login using built-in password hashing and signed expiring bearer tokens, protected member/reward APIs, a one-page landing/authentication view, searchable member directory pagination and sorting, and four dependency-free automated tests. Smoke-tested registration/login, confirmed unauthenticated access returns `401`, verified member search pagination/sorting, and confirmed a protected Silver purchase awards 12 points from a 10-unit purchase. All automated tests passed and temporary test data was removed.
+
+## User
+
+Twists for this problem: add Platinum at lifetime spend `5000` with `0.3` points per currency unit; expire unused points after `90` days through `POST /clock`; notify on tier crossing through `/outbox`. Build these features step by step.
+
+## Assistant
+
+Added `lifetimeSpend`, the Platinum tier and multiplier, expiring point lots, deterministic `/clock` expiry, expiration transactions, and a notification outbox. A live test confirmed Gold `4999` plus a purchase crossed to Platinum and created a notification; advancing the clock expired 11 points across two lots. Temporary twist-test data was removed.

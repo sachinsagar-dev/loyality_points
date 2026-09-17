@@ -7,6 +7,7 @@ const connectDatabase = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const memberRoutes = require('./routes/memberRoutes');
 const rewardRoutes = require('./routes/rewardRoutes');
+const { getOutbox, runClock } = require('./controllers/systemController');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -22,6 +23,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 app.use('/api/auth', authRoutes);
+app.post('/clock', runClock);
+app.get('/outbox', getOutbox);
+app.post('/api/clock', runClock);
+app.get('/api/outbox', getOutbox);
 app.use('/api/members', memberRoutes);
 app.use('/api/members', rewardRoutes);
 app.use(errorHandler);

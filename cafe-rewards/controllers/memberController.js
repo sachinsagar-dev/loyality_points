@@ -1,4 +1,5 @@
 const Member = require('../models/Member');
+const { REWARD_RULES } = require('../services/rewardService');
 
 async function getMemberByPhone(req, res) {
   const member = await Member.findOne({ phone: req.params.phone });
@@ -7,8 +8,10 @@ async function getMemberByPhone(req, res) {
 }
 
 async function createMember(req, res) {
-  const { name, phone, tier } = req.body;
-  const member = await Member.create({ name, phone, tier });
+  const { name, phone, tier, lifetimeSpend } = req.body;
+  const spend = lifetimeSpend === undefined ? 0 : Number(lifetimeSpend);
+  const resolvedTier = spend >= REWARD_RULES.platinumLifetimeSpend ? 'Platinum' : tier;
+  const member = await Member.create({ name, phone, tier: resolvedTier, lifetimeSpend: spend });
   return res.status(201).json({ member });
 }
 

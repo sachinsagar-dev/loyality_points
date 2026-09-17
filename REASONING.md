@@ -38,6 +38,7 @@ The initial run failed because no MongoDB process was listening on port `27017`.
 8. Added immutable purchase/redemption transaction records plus a paginated and sorted member history view.
 9. Added simple staff registration/login with built-in password hashing and signed expiring bearer tokens.
 10. Added a one-page landing/authentication view, authenticated member directory search, and dependency-free automated tests.
+11. Added the three twists: Platinum promotion at lifetime spend `5000`, 90-day point lots with deterministic `/clock` expiry, and `/outbox` notifications on tier crossing.
 
 ## Testing and fixes
 
@@ -51,9 +52,10 @@ The initial run failed because no MongoDB process was listening on port `27017`.
 - Found duplicate Node server processes during testing, stopped them, and reran the test against one clean process.
 - Smoke-tested staff registration/login, confirmed unauthenticated member access returns `401`, verified member search pagination/sorting, and confirmed a protected Silver purchase awards 12 points from a 10-unit purchase.
 - Ran `npm test`; all four reward/schema tests passed.
+- Smoke-tested the twists end to end: a Gold member crossing from `4999` to `5000` became Platinum and produced an outbox event; `/clock` expired 11 points across two test lots and created expiration transactions.
 
 ## Known limitations and next work
 
 The current implementation covers the Round 2 mandatory product shape: persistence, REST APIs, usable UI, staff registration/login, search, a landing/authentication page, and pagination/sorting. Production hardening remains: roles, token revocation, password reset, and full MongoDB integration/concurrency tests.
 
-The reward multipliers are placeholders pending confirmation of official business rules. Production use would also need authentication, authorization, request validation hardening, audit logging, and automated integration tests.
+The current implementation covers the Round 2 requirements plus all three twists. Production hardening remains: roles, token revocation, password reset, request validation hardening, audit logging, and full MongoDB integration/concurrency tests.
