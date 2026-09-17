@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Café Rewards Counter</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="header">
+        <p class="eyebrow">Staff counter</p>
+        <h1>Café Rewards</h1>
+        <p>Find a member, record a purchase, or redeem points.</p>
+      </header>
+
+      <section class="panel" aria-labelledby="lookup-heading">
+        <h2 id="lookup-heading">Member lookup</h2>
+        <form id="lookup-form" class="inline-form">
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" required autocomplete="tel" placeholder="e.g. 5551234567" />
+          <button type="submit">Search</button>
+        </form>
+      </section>
+
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+
+      <section id="member-panel" class="panel member-panel" hidden aria-labelledby="member-heading">
+        <div class="member-heading">
+          <div>
+            <p class="eyebrow">Current member</p>
+            <h2 id="member-heading"></h2>
+          </div>
+          <span id="tier" class="tier"></span>
+        </div>
+        <p class="balance"><span id="points">0</span> points</p>
+
+        <div class="actions">
+          <form id="purchase-form">
+            <h3>Record purchase</h3>
+            <label for="purchase-amount">Purchase amount</label>
+            <input id="purchase-amount" type="number" min="0.01" step="0.01" required />
+            <button type="submit">Add points</button>
+          </form>
+          <form id="redeem-form">
+            <h3>Redeem points</h3>
+            <label for="redeem-points">Points to redeem</label>
+            <input id="redeem-points" type="number" min="1" step="1" required />
+            <button type="submit" class="secondary">Redeem</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <script src="/script.js"></script>
+  </body>
+</html>
