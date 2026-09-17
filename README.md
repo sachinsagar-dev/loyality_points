@@ -17,15 +17,16 @@ The application uses a plain HTML/CSS/JavaScript frontend, an Express REST API, 
 - Database-aware `GET /api/health` endpoint.
 - Local MongoDB setup through Docker Compose with persistent storage.
 - Responsive staff counter UI using no frontend framework.
+- Persistent purchase/redemption activity history with pagination and sorting.
 
-The current build does not yet include user authentication/login, transaction history, or member-list pagination/sorting. These are identified as the next build priorities because the Round 2 brief makes them mandatory or valuable extensions.
+The current build does not yet include user authentication/login or paginated member-list search. These remain the next priorities because the Round 2 brief makes them mandatory.
 
 ## Architecture
 
 ```text
 cafe-rewards/
 ├── public/                 Static staff UI
-├── models/Member.js        Mongoose member schema and indexes
+├── models/                 Mongoose member and transaction schemas
 ├── routes/                 REST route declarations
 ├── controllers/            Thin HTTP handlers
 ├── services/rewardService.js Centralized reward rules and balance updates
@@ -111,6 +112,10 @@ Redeems whole-number points and returns the updated member.
 { "points": 10 }
 ```
 
+### `GET /api/members/:id/transactions?page=1&limit=10&sortBy=createdAt&order=desc`
+
+Returns the member's persisted purchase and redemption activity. `sortBy` accepts `createdAt`, `pointsChange`, or `type`; `limit` is capped at 50.
+
 Errors consistently use `{ "error": "message" }` with an appropriate HTTP status.
 
 ## Reward and consistency decisions
@@ -154,7 +159,7 @@ If startup reports `ECONNREFUSED 127.0.0.1:27017`, start MongoDB with `npm run d
 ## Next three features
 
 1. Staff authentication and login with protected API operations.
-2. Persistent transaction history for purchases and redemptions.
-3. A searchable member list with pagination and sorting.
+2. A searchable member list with pagination and sorting.
+3. Automated integration tests for concurrent redemption and transaction integrity.
 
 See [REASONING.md](REASONING.md) for implementation decisions and testing notes. See [AI_LOGS.md](AI_LOGS.md) for the available AI-assisted development transcript.

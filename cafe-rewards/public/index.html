@@ -72,6 +72,29 @@
             <button type="submit" class="secondary">Redeem</button>
           </form>
         </div>
+
+        <div class="history-heading">
+          <h3>Activity</h3>
+          <label for="history-sort">Sort by</label>
+          <select id="history-sort">
+            <option value="createdAt">Newest</option>
+            <option value="pointsChange">Points</option>
+            <option value="type">Type</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>Change</th><th>Balance</th><th>Date</th></tr></thead>
+            <tbody id="history-body"><tr><td colspan="4">No activity yet.</td></tr></tbody>
+          </table>
+        </div>
+        <div class="history-footer">
+          <span id="history-page">Page 1 of 1</span>
+          <div>
+            <button id="history-previous" type="button" class="secondary">Previous</button>
+            <button id="history-next" type="button">Next</button>
+          </div>
+        </div>
       </section>
     </main>
     <script src="/script.js"></script>

@@ -1,4 +1,5 @@
 const Member = require('../models/Member');
+const Transaction = require('../models/Transaction');
 
 // These values are deliberately centralized because the assessment does not define rates.
 const REWARD_RULES = {
@@ -45,6 +46,13 @@ async function earnPoints(memberId, purchaseAmount) {
   );
 
   if (!updatedMember) throw new RewardError('Member changed during purchase; please try again', 409);
+  await Transaction.create({
+    member: updatedMember._id,
+    type: 'purchase',
+    purchaseAmount: Number(purchaseAmount),
+    pointsChange: pointsEarned,
+    balanceAfter: updatedMember.points,
+  });
   return { member: updatedMember, pointsEarned };
 }
 
@@ -64,6 +72,12 @@ async function redeemPoints(memberId, pointsToRedeem) {
     throw new RewardError('Insufficient points', 400);
   }
 
+  await Transaction.create({
+    member: member._id,
+    type: 'redemption',
+    pointsChange: -points,
+    balanceAfter: member.points,
+  });
   return { member, pointsRedeemed: points };
 }
 

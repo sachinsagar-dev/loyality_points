@@ -35,6 +35,7 @@ The initial run failed because no MongoDB process was listening on port `27017`.
 5. Added member registration so staff can create records without manually calling the API.
 6. Added the database-aware health endpoint.
 7. Updated the root submission documentation and identified remaining Round 2 gaps: authentication/login, transaction history, and pagination/sorting.
+8. Added immutable purchase/redemption transaction records plus a paginated and sorted member history view.
 
 ## Testing and fixes
 
@@ -49,6 +50,6 @@ The initial run failed because no MongoDB process was listening on port `27017`.
 
 ## Known limitations and next work
 
-The current implementation is a working initial product, but it is not yet a complete submission against every Round 2 mandatory item. Login/authentication, transaction history, and list search with pagination/sorting remain to be implemented. The current phone lookup is search functionality for an individual member, but it is not yet a paginated member-list search.
+The current implementation is a working product slice, but it is not yet a complete submission against every Round 2 mandatory item. Login/authentication and paginated member-list search remain to be implemented. The current phone lookup is search functionality for an individual member, while transaction history now supports pagination and sorting for one member.
 
 The reward multipliers are placeholders pending confirmation of official business rules. Production use would also need authentication, authorization, request validation hardening, audit logging, and automated integration tests.

@@ -293,8 +293,52 @@ Round 2 is a hands-on, timed build round that assesses how a candidate approache
 
 Every solution must include a database, REST APIs, a usable UI, user registration and login, search, a one-page landing page, pagination and sorting. The final repository must contain root-level `README.md`, `REASONING.md`, and `AI_LOGS.md`.
 
+## Assistant
+
+The root documentation was updated for the Round 2 submission. The root README now covers the product, architecture, setup, environment, REST endpoints, current feature status, limitations, testing, debugging, assumptions, and three next features. `REASONING.md` records design decisions, implementation sequence, consistency strategy, testing, fixes, and remaining gaps. This `AI_LOGS.md` records the substantive conversation available to the agent; the VS Code debug-log directory contained only session metadata rather than a complete chat export.
+
+## User
+
+commit the changes
+
+## Assistant
+
+Committed the initial project as `086c627 Build cafe rewards programme`, then committed the follow-up registration and health-check features as `6a10f7b Add member registration and health check`. The working tree was clean after those commits.
+
+## User
+
+what nest is to be built
+
+## Assistant
+
+Identified the next priorities as automated backend tests, member registration, transaction history, tier management, and production hardening.
+
+## User
+
+build the next features
+
+## Assistant
+
+Built staff member registration with tier selection and automatic selection of the new member, plus `GET /api/health`. Validated health, registration, a Silver purchase awarding 12 points from a 10-unit purchase, and redemption reducing the balance to 7 points. Temporary smoke-test data was removed.
+
+## User
+
+Round 2 — "Builder" Round (overview)
+
+Round 2 is a hands-on, timed build round that assesses how a candidate approaches an open-ended, real-world problem end to end.
+
+Every solution must include a database, REST APIs, a usable UI, user registration and login, search, a one-page landing page, pagination and sorting. The final repository must contain root-level `README.md`, `REASONING.md`, and `AI_LOGS.md`.
+
 Generate the README, reasoning, and AI log files and update the changes and features built till now accordingly in them.
 
 ## Assistant
 
 The root documentation was updated for the Round 2 submission. The root README now covers the product, architecture, setup, environment, REST endpoints, current feature status, limitations, testing, debugging, assumptions, and three next features. `REASONING.md` records design decisions, implementation sequence, consistency strategy, testing, fixes, and remaining gaps. This `AI_LOGS.md` records the substantive conversation available in the workspace; the VS Code debug-log directory contained only session metadata rather than a complete chat export.
+
+## User
+
+build next feature
+
+## Assistant
+
+Built persistent transaction history for purchases and redemptions. Added a `Transaction` Mongoose model, recorded immutable activity from the reward service, added `GET /api/members/:id/transactions` with pagination and sorting, and added activity history controls to the staff UI. The feature was smoke-tested against MongoDB: a purchase and redemption were persisted, `limit=1` returned pagination metadata, and sorting by point change worked. Temporary test data was removed.

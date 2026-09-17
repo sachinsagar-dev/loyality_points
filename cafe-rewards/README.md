@@ -36,6 +36,7 @@ For a hosted MongoDB instance, skip `npm run db:up` and set `MONGO_URI` in `.env
 - `POST /api/members/:id/purchase`: record a purchase. Body: `{ "amount": 12.50 }`.
 - `POST /api/members/:id/redeem`: redeem points. Body: `{ "points": 10 }`.
 - `GET /api/health`: report API and MongoDB connection status.
+- `GET /api/members/:id/transactions?page=1&limit=10&sortBy=createdAt&order=desc`: return paginated member activity. Sorting supports `createdAt`, `pointsChange`, and `type`.
 
 Successful mutation responses include the updated `member`; errors use `{ "error": "..." }` with a relevant HTTP status.
 
