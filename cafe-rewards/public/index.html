@@ -23,6 +23,29 @@
         </form>
       </section>
 
+      <section class="panel" aria-labelledby="registration-heading">
+        <h2 id="registration-heading">Register member</h2>
+        <form id="registration-form" class="registration-form">
+          <div>
+            <label for="member-name">Name</label>
+            <input id="member-name" required autocomplete="name" />
+          </div>
+          <div>
+            <label for="member-phone">Phone number</label>
+            <input id="member-phone" required autocomplete="tel" />
+          </div>
+          <div>
+            <label for="member-tier">Rewards tier</label>
+            <select id="member-tier">
+              <option value="Regular">Regular</option>
+              <option value="Silver">Silver</option>
+              <option value="Gold">Gold</option>
+            </select>
+          </div>
+          <button type="submit">Create member</button>
+        </form>
+      </section>
+
       <p id="message" class="message" role="status" aria-live="polite"></p>
 
       <section id="member-panel" class="panel member-panel" hidden aria-labelledby="member-heading">

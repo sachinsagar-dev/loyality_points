@@ -27,9 +27,11 @@ h1 { margin: 0; font-size: clamp(2.8rem, 8vw, 5.5rem); line-height: 0.95; letter
 h2, h3 { margin-top: 0; }
 h2 { font-size: 1.45rem; }
 h3 { font-size: 1.05rem; }
-.inline-form, .actions form { display: grid; gap: 10px; }
+.inline-form, .actions form, .registration-form { display: grid; gap: 10px; }
+.registration-form { grid-template-columns: 1fr 1fr 0.8fr auto; align-items: end; }
+.registration-form > div { display: grid; gap: 10px; }
 label { color: var(--muted); font: 700 0.8rem/1.2 Arial, sans-serif; }
-input { width: 100%; padding: 13px 14px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 2px; font: 1rem Arial, sans-serif; }
+input, select { width: 100%; padding: 13px 14px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 2px; font: 1rem Arial, sans-serif; }
 button { padding: 13px 18px; color: #fff; background: var(--accent); border: 0; border-radius: 2px; cursor: pointer; font: 700 0.85rem Arial, sans-serif; }
 button:hover { background: var(--accent-dark); }
 .message { min-height: 22px; color: var(--accent-dark); font: 0.9rem Arial, sans-serif; }
@@ -41,4 +43,5 @@ button:hover { background: var(--accent-dark); }
 .actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; border-top: 1px solid var(--line); padding-top: 24px; }
 .secondary { color: var(--ink); background: #e4e0d4; }
 .secondary:hover { background: #d4cec0; }
-@media (max-width: 600px) { .shell { padding: 36px 0; } .panel { padding: 20px; } .actions { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .registration-form { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .shell { padding: 36px 0; } .panel { padding: 20px; } .actions, .registration-form { grid-template-columns: 1fr; } }

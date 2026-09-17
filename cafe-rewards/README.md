@@ -35,6 +35,7 @@ For a hosted MongoDB instance, skip `npm run db:up` and set `MONGO_URI` in `.env
 - `POST /api/members`: create a member. Body: `{ "name": "Ava", "phone": "5551234567", "tier": "Regular" }`.
 - `POST /api/members/:id/purchase`: record a purchase. Body: `{ "amount": 12.50 }`.
 - `POST /api/members/:id/redeem`: redeem points. Body: `{ "points": 10 }`.
+- `GET /api/health`: report API and MongoDB connection status.
 
 Successful mutation responses include the updated `member`; errors use `{ "error": "..." }` with a relevant HTTP status.
 

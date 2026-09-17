@@ -32,6 +32,23 @@ document.querySelector('#lookup-form').addEventListener('submit', async (event) 
   } catch (error) { showMessage(error.message, true); memberPanel.hidden = true; }
 });
 
+document.querySelector('#registration-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  try {
+    const result = await request('/api/members', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: document.querySelector('#member-name').value.trim(),
+        phone: document.querySelector('#member-phone').value.trim(),
+        tier: document.querySelector('#member-tier').value,
+      }),
+    });
+    renderMember(result.member);
+    showMessage('Member created and selected.');
+    event.target.reset();
+  } catch (error) { showMessage(error.message, true); }
+});
+
 document.querySelector('#purchase-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   try {
