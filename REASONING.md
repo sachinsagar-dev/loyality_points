@@ -36,6 +36,8 @@ The initial run failed because no MongoDB process was listening on port `27017`.
 6. Added the database-aware health endpoint.
 7. Updated the root submission documentation and identified remaining Round 2 gaps: authentication/login, transaction history, and pagination/sorting.
 8. Added immutable purchase/redemption transaction records plus a paginated and sorted member history view.
+9. Added simple staff registration/login with built-in password hashing and signed expiring bearer tokens.
+10. Added a one-page landing/authentication view, authenticated member directory search, and dependency-free automated tests.
 
 ## Testing and fixes
 
@@ -47,9 +49,11 @@ The initial run failed because no MongoDB process was listening on port `27017`.
 - Smoke-tested `GET /api/health`, member creation, a Silver purchase, and redemption. A 10-unit purchase awarded 12 points at the current Silver multiplier; redeeming 5 left 7 points.
 - Removed the temporary smoke-test member from MongoDB.
 - Found duplicate Node server processes during testing, stopped them, and reran the test against one clean process.
+- Smoke-tested staff registration/login, confirmed unauthenticated member access returns `401`, verified member search pagination/sorting, and confirmed a protected Silver purchase awards 12 points from a 10-unit purchase.
+- Ran `npm test`; all four reward/schema tests passed.
 
 ## Known limitations and next work
 
-The current implementation is a working product slice, but it is not yet a complete submission against every Round 2 mandatory item. Login/authentication and paginated member-list search remain to be implemented. The current phone lookup is search functionality for an individual member, while transaction history now supports pagination and sorting for one member.
+The current implementation covers the Round 2 mandatory product shape: persistence, REST APIs, usable UI, staff registration/login, search, a landing/authentication page, and pagination/sorting. Production hardening remains: roles, token revocation, password reset, and full MongoDB integration/concurrency tests.
 
 The reward multipliers are placeholders pending confirmation of official business rules. Production use would also need authentication, authorization, request validation hardening, audit logging, and automated integration tests.

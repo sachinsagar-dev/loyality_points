@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const connectDatabase = require('./config/db');
+const authRoutes = require('./routes/authRoutes');
 const memberRoutes = require('./routes/memberRoutes');
 const rewardRoutes = require('./routes/rewardRoutes');
 const errorHandler = require('./middleware/errorHandler');
@@ -20,6 +21,7 @@ app.get('/api/health', (req, res) => {
     database: isDatabaseReady ? 'connected' : 'disconnected',
   });
 });
+app.use('/api/auth', authRoutes);
 app.use('/api/members', memberRoutes);
 app.use('/api/members', rewardRoutes);
 app.use(errorHandler);

@@ -8,11 +8,55 @@
   </head>
   <body>
     <main class="shell">
+      <section id="welcome-panel">
+        <header class="header landing-header">
+          <p class="eyebrow">For café teams</p>
+          <h1>Café Rewards</h1>
+          <p>A calm, reliable counter for member balances, purchases, and rewards.</p>
+          <div class="feature-strip"><span>Live balances</span><span>Tier-aware points</span><span>Auditable activity</span></div>
+        </header>
+        <section class="panel auth-panel" aria-labelledby="auth-heading">
+          <h2 id="auth-heading">Staff access</h2>
+          <div class="auth-forms">
+            <form id="login-form">
+              <h3>Log in</h3>
+              <label for="login-email">Email</label>
+              <input id="login-email" type="email" required autocomplete="email" />
+              <label for="login-password">Password</label>
+              <input id="login-password" type="password" required autocomplete="current-password" />
+              <button type="submit">Log in</button>
+            </form>
+            <form id="staff-registration-form">
+              <h3>Create staff account</h3>
+              <label for="staff-name">Name</label>
+              <input id="staff-name" required autocomplete="name" />
+              <label for="staff-email">Email</label>
+              <input id="staff-email" type="email" required autocomplete="email" />
+              <label for="staff-password">Password</label>
+              <input id="staff-password" type="password" minlength="8" required autocomplete="new-password" />
+              <button type="submit" class="secondary">Register</button>
+            </form>
+          </div>
+        </section>
+      </section>
+
+      <section id="app-shell" hidden>
       <header class="header">
         <p class="eyebrow">Staff counter</p>
         <h1>Café Rewards</h1>
-        <p>Find a member, record a purchase, or redeem points.</p>
+        <p>Find a member, record a purchase, or redeem points. <button id="logout-button" type="button" class="text-button">Log out</button></p>
       </header>
+
+      <section class="panel" aria-labelledby="directory-heading">
+        <div class="directory-heading"><div><p class="eyebrow">Member directory</p><h2 id="directory-heading">Find a member</h2></div><select id="directory-sort" aria-label="Sort members"><option value="name">Name</option><option value="points">Points</option><option value="createdAt">Newest</option></select></div>
+        <form id="directory-form" class="inline-form">
+          <label for="directory-search">Search by name or phone</label>
+          <input id="directory-search" placeholder="Start typing to search" />
+          <button type="submit">Search</button>
+        </form>
+        <div class="table-wrap"><table><thead><tr><th>Name</th><th>Phone</th><th>Tier</th><th>Points</th><th></th></tr></thead><tbody id="directory-body"></tbody></table></div>
+        <div class="history-footer"><span id="directory-page">Page 1 of 1</span><div><button id="directory-previous" type="button" class="secondary">Previous</button><button id="directory-next" type="button">Next</button></div></div>
+      </section>
 
       <section class="panel" aria-labelledby="lookup-heading">
         <h2 id="lookup-heading">Member lookup</h2>
@@ -95,6 +139,7 @@
             <button id="history-next" type="button">Next</button>
           </div>
         </div>
+      </section>
       </section>
     </main>
     <script src="/script.js"></script>

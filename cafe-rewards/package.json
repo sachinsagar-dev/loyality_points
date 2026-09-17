@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "test": "node --test",
     "db:up": "docker compose up -d mongo",
     "db:down": "docker compose down"
   },

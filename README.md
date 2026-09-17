@@ -18,8 +18,12 @@ The application uses a plain HTML/CSS/JavaScript frontend, an Express REST API, 
 - Local MongoDB setup through Docker Compose with persistent storage.
 - Responsive staff counter UI using no frontend framework.
 - Persistent purchase/redemption activity history with pagination and sorting.
+- Staff registration/login with signed expiring bearer tokens and protected operations.
+- One-page product landing/authentication entry view.
+- Searchable member directory with pagination and sorting.
+- Dependency-free automated tests for reward and schema invariants.
 
-The current build does not yet include user authentication/login or paginated member-list search. These remain the next priorities because the Round 2 brief makes them mandatory.
+The core Round 2 requirements are now represented in the implementation. Future hardening could add role permissions, richer integration tests, and production session revocation.
 
 ## Architecture
 
@@ -69,6 +73,7 @@ The MongoDB data is stored in the named Docker volume `cafe_rewards_mongo_data`.
 | --- | --- | --- |
 | `MONGO_URI` | MongoDB connection string | `mongodb://127.0.0.1:27017/cafe_rewards` |
 | `PORT` | Express HTTP port | `3000` |
+| `AUTH_SECRET` | Secret used to sign staff bearer tokens | a long random value |
 
 Never commit `.env`; it is excluded by `.gitignore`. Use `.env.example` as the safe template.
 
@@ -77,6 +82,14 @@ Never commit `.env`; it is excluded by `.gitignore`. Use `.env.example` as the s
 ### `GET /api/health`
 
 Returns API/database status. Returns `200` when MongoDB is connected and `503` when it is unavailable.
+
+### `POST /api/auth/register`
+
+Creates a staff account and returns a signed bearer token. Body: `{ "name": "Ava", "email": "ava@example.com", "password": "password123" }`.
+
+### `POST /api/auth/login`
+
+Authenticates a staff account and returns a signed bearer token. Body: `{ "email": "ava@example.com", "password": "password123" }`.
 
 ### `POST /api/members`
 
@@ -95,6 +108,10 @@ Returns `201` with `{ "member": { ... } }`.
 ### `GET /api/members/:phone`
 
 Looks up one member by their indexed phone number. Returns `404` if no member exists.
+
+### `GET /api/members?search=&page=1&limit=10&sortBy=name&order=asc`
+
+Returns authenticated staff a searchable member list. Search matches name or phone; supported sort fields are `name`, `phone`, `tier`, `points`, and `createdAt`. `limit` is capped at 50.
 
 ### `POST /api/members/:id/purchase`
 
@@ -135,6 +152,12 @@ Purchases use an atomic `$inc`. Redemptions use an atomic update filter requirin
 
 ## Testing and debugging
 
+Run automated tests:
+
+```sh
+npm test
+```
+
 Syntax checks for the backend and browser JavaScript:
 
 ```sh
@@ -158,8 +181,8 @@ If startup reports `ECONNREFUSED 127.0.0.1:27017`, start MongoDB with `npm run d
 
 ## Next three features
 
-1. Staff authentication and login with protected API operations.
-2. A searchable member list with pagination and sorting.
-3. Automated integration tests for concurrent redemption and transaction integrity.
+1. Staff roles and permissions for managers versus counter staff.
+2. Automated MongoDB integration tests for concurrent redemption and transaction integrity.
+3. Password reset and token revocation for production operations.
 
 See [REASONING.md](REASONING.md) for implementation decisions and testing notes. See [AI_LOGS.md](AI_LOGS.md) for the available AI-assisted development transcript.

@@ -342,3 +342,11 @@ build next feature
 ## Assistant
 
 Built persistent transaction history for purchases and redemptions. Added a `Transaction` Mongoose model, recorded immutable activity from the reward service, added `GET /api/members/:id/transactions` with pagination and sorting, and added activity history controls to the staff UI. The feature was smoke-tested against MongoDB: a purchase and redemption were persisted, `limit=1` returned pagination metadata, and sorting by point change worked. Temporary test data was removed.
+
+## User
+
+build the rest feasture but keep it simple
+
+## Assistant
+
+Built the remaining simple Round 2 feature set: staff registration/login using built-in password hashing and signed expiring bearer tokens, protected member/reward APIs, a one-page landing/authentication view, searchable member directory pagination and sorting, and four dependency-free automated tests. Smoke-tested registration/login, confirmed unauthenticated access returns `401`, verified member search pagination/sorting, and confirmed a protected Silver purchase awards 12 points from a 10-unit purchase. All automated tests passed and temporary test data was removed.

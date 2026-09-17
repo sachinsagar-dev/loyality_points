@@ -28,9 +28,13 @@ For a hosted MongoDB instance, skip `npm run db:up` and set `MONGO_URI` in `.env
 | --- | --- | --- |
 | `MONGO_URI` | MongoDB connection string | `mongodb://127.0.0.1:27017/cafe_rewards` |
 | `PORT` | HTTP port | `3000` |
+| `AUTH_SECRET` | Secret used to sign staff bearer tokens | a long random value |
 
 ## API
 
+- `POST /api/auth/register`: register a staff user and receive a bearer token.
+- `POST /api/auth/login`: log in a staff user and receive a bearer token.
+- `GET /api/members?search=&page=1&limit=10&sortBy=name&order=asc`: authenticated member search with pagination and sorting.
 - `GET /api/members/:phone`: look up one member by phone number.
 - `POST /api/members`: create a member. Body: `{ "name": "Ava", "phone": "5551234567", "tier": "Regular" }`.
 - `POST /api/members/:id/purchase`: record a purchase. Body: `{ "amount": 12.50 }`.
@@ -39,6 +43,7 @@ For a hosted MongoDB instance, skip `npm run db:up` and set `MONGO_URI` in `.env
 - `GET /api/members/:id/transactions?page=1&limit=10&sortBy=createdAt&order=desc`: return paginated member activity. Sorting supports `createdAt`, `pointsChange`, and `type`.
 
 Successful mutation responses include the updated `member`; errors use `{ "error": "..." }` with a relevant HTTP status.
+Member and reward endpoints require `Authorization: Bearer <token>`.
 
 ## Important assumptions
 
