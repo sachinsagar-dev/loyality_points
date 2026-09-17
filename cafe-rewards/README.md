@@ -18,6 +18,8 @@ A full-stack staff counter for managing café members, purchase points, and poin
 4. Start MongoDB with `npm run db:up`.
 5. Start the application with `npm start` and open `http://localhost:3000`.
 
+To populate the local database with three demo staff accounts and thirty demo customers, run `npm run seed`. The command is idempotent and prints generated staff login passwords.
+
 The Compose file stores MongoDB data in the named `cafe_rewards_mongo_data` volume. Stop the database with `npm run db:down`; the volume is retained for the next startup.
 
 For a hosted MongoDB instance, skip `npm run db:up` and set `MONGO_URI` in `.env` to the provider connection string.

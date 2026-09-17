@@ -65,6 +65,14 @@ To stop the local database:
 npm run db:down
 ```
 
+To create the demo dataset of three staff accounts and thirty customers:
+
+```sh
+npm run seed
+```
+
+The seed command is idempotent. It prints generated staff passwords once; customer phone numbers use the fictional `202-555-0101` through `202-555-0130` range.
+
 The MongoDB data is stored in the named Docker volume `cafe_rewards_mongo_data`. To use hosted MongoDB instead, skip `npm run db:up` and set `MONGO_URI` in `.env`.
 
 ## Environment variables

@@ -75,4 +75,4 @@ async function loginUser({ email, password }) {
   return { user: { id: user._id, name: user.name, email: user.email }, token: createToken(user) };
 }
 
-module.exports = { AuthError, registerUser, loginUser, verifyToken };
+module.exports = { AuthError, hashPassword, registerUser, loginUser, verifyToken };
